@@ -1,9 +1,8 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart';
-import 'package:practice_makes_perfect/db/database_keys.dart';
-import 'package:practice_makes_perfect/models/dog.dart';
+import 'package:practice_makes_perfect/dog/dog_model.dart';
+import 'package:practice_makes_perfect/services/db/database_keys.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseProvider {
@@ -22,7 +21,7 @@ class DatabaseProvider {
   Future<Database> openDB() async {
     Future<void> _onCreate(Database db, int version) async {
       await db.transaction((txn) async {
-        await txn.execute((Dog.createDogTableString));
+        await txn.execute((DogModel.createDogTableString));
       });
     }
 
@@ -31,19 +30,19 @@ class DatabaseProvider {
     return await openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
-  Future<List<Dog>> getDogs() async {
+  Future<List<DogModel>> getDogs() async {
     final db = await database;
 
     final dogsMaps = await db.query(DBKeys.tableDogs);
 
-    final dogs = <Dog>[];
+    final dogs = <DogModel>[];
     for (final dogMap in dogsMaps) {
-      dogs.add(Dog.fromMap(dogMap));
+      dogs.add(DogModel.fromMap(dogMap));
     }
     return dogs;
   }
 
-  Future<void> insertDog(Dog dog) async {
+  Future<void> insertDog(DogModel dog) async {
     final db = await database;
 
     // Replace if dog already exists

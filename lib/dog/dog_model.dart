@@ -1,19 +1,20 @@
-import 'package:practice_makes_perfect/db/database_keys.dart';
+import 'package:practice_makes_perfect/services/db/database_keys.dart';
 
 const _columnId = 'id';
 const _columnName = 'name';
 const _columnBreed = 'breed';
 const _columnAge = 'age';
 
-class Dog {
-  Dog({this.id, this.name, this.breed, this.age});
+class DogModel {
+  DogModel({this.id, this.name, this.breed, this.age});
 
   int id;
   String name;
   String breed;
   String age;
+  List<DogModel> dogs;
 
-  Dog.fromMap(Map<String, dynamic> map) {
+  DogModel.fromMap(Map<String, dynamic> map) {
     id = map[_columnId] as int;
     name = map[_columnName] as String;
     breed = map[_columnBreed] as String;
