@@ -2,10 +2,14 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:practice_makes_perfect/dog/dog_model.dart';
+import 'package:practice_makes_perfect/dog/enums.dart';
 import 'package:practice_makes_perfect/services/db/database_provider.dart';
 
 class DogProvider extends ChangeNotifier {
   var _dogs = List<DogModel>();
+
+  final TextEditingController _dogName = TextEditingController();
+  TextEditingController get dogName => _dogName;
 
   UnmodifiableListView<DogModel> get dogs => UnmodifiableListView(_dogs);
 
@@ -16,14 +20,20 @@ class DogProvider extends ChangeNotifier {
     });
   }
 
-  void insertDog({String name, String breed, String age}) async {
+  void insertDog({String name, String breed}) async {
     await DatabaseProvider.db.insertDog(
       DogModel(
-        name: name,
-        breed: breed,
-        age: age,
+        name: _dogName.text,
       ),
     );
     getDogs();
+  }
+
+  DogModel dogModel;
+
+  DogBreeds get breed => dogModel.breed;
+  set breed(DogBreeds value) {
+    dogModel.breed = value;
+    notifyListeners();
   }
 }

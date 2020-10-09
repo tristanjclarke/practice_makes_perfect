@@ -1,24 +1,22 @@
+import 'package:practice_makes_perfect/dog/enums.dart';
 import 'package:practice_makes_perfect/services/db/database_keys.dart';
 
 const _columnId = 'id';
 const _columnName = 'name';
 const _columnBreed = 'breed';
-const _columnAge = 'age';
 
 class DogModel {
-  DogModel({this.id, this.name, this.breed, this.age});
+  DogModel({this.id, this.name, this.breed});
 
   int id;
   String name;
-  String breed;
-  String age;
+  DogBreeds breed = DogBreeds.goldie;
   List<DogModel> dogs;
 
   DogModel.fromMap(Map<String, dynamic> map) {
     id = map[_columnId] as int;
     name = map[_columnName] as String;
-    breed = map[_columnBreed] as String;
-    age = map[_columnAge] as String;
+    breed = map[_columnBreed] as DogBreeds;
   }
 
   Map<String, dynamic> toMap() {
@@ -26,7 +24,6 @@ class DogModel {
       _columnId: id,
       _columnName: name,
       _columnBreed: breed,
-      _columnAge: age,
     };
     return map;
   }
@@ -35,7 +32,6 @@ class DogModel {
          CREATE TABLE ${DBKeys.tableDogs} (
             $_columnId INT PRIMARY KEY,
             $_columnName TEXT,
-            $_columnBreed TEXT,
-            $_columnAge TEXT
+            $_columnBreed TEXT
           )''';
 }

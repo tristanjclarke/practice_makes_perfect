@@ -27,13 +27,24 @@ class _HomeState extends State<Home> {
         child: Consumer<DogProvider>(
           builder: (_, dogProvider, child) => Column(
             children: [
-              SizedBox(height: 20),
               Expanded(
-                child: ListView.builder(
-                  itemBuilder: (context, index) => DogCard(
-                    dog: dogProvider.dogs[index],
-                  ),
-                  itemCount: dogProvider.dogs.length,
+                child: CustomScrollView(
+                  slivers: [
+                    SliverPadding(
+                      padding: EdgeInsets.all(10),
+                      sliver: SliverGrid.count(
+                        crossAxisCount: 2,
+                        children: List.generate(
+                          dogProvider.dogs.length,
+                          (index) {
+                            return DogCard(
+                              dog: dogProvider.dogs[index],
+                            );
+                          },
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
               Center(
@@ -42,7 +53,11 @@ class _HomeState extends State<Home> {
                     context,
                     MaterialPageRoute(builder: (context) => AddDog()),
                   ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   color: Colors.blue,
+                  textColor: Colors.white,
                   child: Text('ADD DOG'),
                 ),
               )
