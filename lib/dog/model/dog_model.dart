@@ -10,21 +10,24 @@ class DogModel {
 
   int id;
   String name;
-  DogBreeds breed = DogBreeds.goldie;
-  List<DogModel> dogs;
+  DogBreeds breed;
+  List<WeekDays> weekDays;
 
   DogModel.fromMap(Map<String, dynamic> map) {
     id = map[_columnId] as int;
     name = map[_columnName] as String;
-    breed = map[_columnBreed] as DogBreeds;
+    breed = DogBreeds.values.firstWhere(
+        (type) => type.toString() == map[_columnBreed],
+        orElse: () => null);
   }
 
   Map<String, dynamic> toMap() {
     final map = <String, dynamic>{
       _columnId: id,
       _columnName: name,
-      _columnBreed: breed,
+      _columnBreed: breed.toString(),
     };
+    print(map);
     return map;
   }
 

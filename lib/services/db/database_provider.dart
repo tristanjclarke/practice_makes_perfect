@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:path/path.dart';
-import 'package:practice_makes_perfect/dog/dog_model.dart';
+import 'package:practice_makes_perfect/dog/model/dog_model.dart';
 import 'package:practice_makes_perfect/services/db/database_keys.dart';
 import 'package:sqflite/sqflite.dart';
 

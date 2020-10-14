@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:practice_makes_perfect/dog/add_dog.dart';
-import 'package:practice_makes_perfect/dog/dog_model.dart';
 import 'package:practice_makes_perfect/dog/dog_provider.dart';
 import 'package:practice_makes_perfect/home/home.dart';
 import 'package:practice_makes_perfect/services/db/database_provider.dart';
@@ -21,7 +19,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     initDB();
-
     super.initState();
   }
 

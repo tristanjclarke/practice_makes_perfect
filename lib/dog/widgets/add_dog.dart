@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:practice_makes_perfect/dog/dog_model.dart';
 import 'package:practice_makes_perfect/dog/dog_provider.dart';
 import 'package:practice_makes_perfect/dog/enums.dart';
+import 'package:practice_makes_perfect/dog/widgets/toggle_button.dart';
 import 'package:provider/provider.dart';
 
 class AddDog extends StatelessWidget {
@@ -19,6 +19,8 @@ class AddDog extends StatelessWidget {
               _Name(),
               SizedBox(height: 20),
               _Breed(),
+              SizedBox(height: 20),
+              _WeekDays(),
               Expanded(child: SizedBox.shrink()),
               _AddDogButton(),
             ],
@@ -70,7 +72,7 @@ class _Breed extends StatelessWidget {
           Wrap(
             children: [
               ...DogBreeds.values.map(
-                (dogBreeds) => _toggleButton(
+                (dogBreeds) => ToggleButton(
                   active: dogProvider.breed == dogBreeds,
                   onPressed: () => dogProvider.breed = dogBreeds,
                   child: Text(
@@ -93,23 +95,60 @@ class _Breed extends StatelessWidget {
         return 'Bull Dog';
       case DogBreeds.goldie:
         return 'Golden Retriever';
-        throw StateError('Invalid value: $value');
     }
+    throw StateError('Invalid value: $value');
   }
+}
 
-  Widget _toggleButton({bool active, VoidCallback onPressed, Widget child}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
-      child: FlatButton(
-        onPressed: onPressed,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        textColor: Colors.white,
-        color: active ? Colors.blue : Colors.grey,
-        child: child,
+class _WeekDays extends StatelessWidget {
+  _WeekDays();
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<DogProvider>(
+      builder: (ctx, dogProvider, child) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'When will you need a doggy sitter?',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Wrap(
+            children: [
+              ...WeekDays.values.map(
+                (weekDays) => ToggleButton(
+                  active: dogProvider.weekDays.contains(weekDays),
+                  onPressed: () => dogProvider.toggleWeekDays(weekDays),
+                  child: Text(
+                    _resolveButtonLabel(weekDays),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
+  }
+
+  String _resolveButtonLabel(WeekDays value) {
+    switch (value) {
+      case WeekDays.sun:
+        return 'Sunday';
+      case WeekDays.mon:
+        return 'Monday';
+      case WeekDays.tue:
+        return 'Tuesday';
+      case WeekDays.wed:
+        return 'Wednesday';
+      case WeekDays.thu:
+        return 'Thursday';
+      case WeekDays.fri:
+        return 'Friday';
+      case WeekDays.sat:
+        return 'Saturday';
+    }
+    throw StateError('Invalid value: $value');
   }
 }
 

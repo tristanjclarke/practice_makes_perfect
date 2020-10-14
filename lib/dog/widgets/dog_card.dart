@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:practice_makes_perfect/dog/dog_model.dart';
+import 'package:practice_makes_perfect/dog/model/dog_model.dart';
 
 class DogCard extends StatelessWidget {
   const DogCard({this.dog});
@@ -28,7 +28,7 @@ class DogCard extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Text(
-                'Breed: ${dog.breed}',
+                'Breed: ${dog.breed}'.replaceAll('DogBreeds.', ''),
                 style: TextStyle(
                   color: Colors.white,
                 ),

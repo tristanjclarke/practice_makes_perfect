@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:practice_makes_perfect/dog/add_dog.dart';
-import 'package:practice_makes_perfect/dog/dog_card.dart';
+import 'package:practice_makes_perfect/dog/enums.dart';
+import 'package:practice_makes_perfect/dog/widgets//add_dog.dart';
+import 'package:practice_makes_perfect/dog/widgets/dog_card.dart';
 import 'package:practice_makes_perfect/dog/dog_provider.dart';
 import 'package:provider/provider.dart';
 
